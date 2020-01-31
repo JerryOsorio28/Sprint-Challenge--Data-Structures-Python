@@ -4,6 +4,9 @@ class Node:
     self.value = value
     # reference to the next node in the list
     self.next_node = next_node
+  
+  def __repr__(self):
+    return f'{self.value} {self.next_node}'
 
   def get_value(self):
     return self.value
@@ -19,6 +22,9 @@ class LinkedList:
   def __init__(self):
     # reference to the head of the list
     self.head = None
+
+  def __repr__(self):
+    return f'{self.head}'
 
   def add_to_head(self, value):
     node = Node(value)
@@ -43,20 +49,35 @@ class LinkedList:
     return False
 
   def reverse_list(self):
-    # # TO BE COMPLETED
-    # first we set a variable that will refer to the previous node, initialized to None
-    previous = None
-    # while the head node of our linked list is not None
-    while self.head is not None:
-      # we grab the value of our current's next node
-      next_node = self.head.next_node
-      # we set the head's next node to be our previous 
-      self.head.next_node = previous
-      # we set that previous now to have the value of the head
-      previous = self.head
-      # and we change our new head to be our next node
-      self.head = next_node
-    # when the head of our LL is None, we set the head to be our previous
-    self.head = previous
+    #TO BE COMPLETED 
+    # We set a variable initialized to None, because the previous the head of the LL is None
+    prev = None
+    # while the head of our LL exists
+    while self.head:
+      # we grab a copy of our the LL current head
+      temp = self.head
+      # we reassign the head of our LL to be the next node in the LL
+      self.head = self.head.next_node
+      # the pointer of temp (our previous head) will point to prev
+      temp.next_node = prev
+      # we set the previous now to be our previous head (temp)
+      prev = temp
+    # if the head equals None, it means we have reached the end of our LL
+    # and we set the head to be equal to the prev (our last node) 
+    self.head = prev
 
+# ***IMPORTANT***
+# WE DONT CHANGE THE VALUE OF OUR NODES AS WE ITERATE, THE ONLY THING WE CHANGE IS OUR POINTERS!
 
+# input [1 > 2 > 3 > 4 > 5]
+# end result [1 < 2 < 3 < 4 < 5]
+
+# if __name__ == '__main__':
+#   ll = LinkedList()
+#   ll.add_to_head(1)
+#   ll.add_to_head(2)
+#   ll.add_to_head(10)
+#   print(ll)
+#   print('head', ll.head)
+#   ll.reverse_list()
+#   print('head', ll.head)
